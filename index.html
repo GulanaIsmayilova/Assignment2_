@@ -16,6 +16,12 @@
             <label for="searchInput">Search:</label>
       <input type="text" id="searchInput" oninput="searchProducts()">
         </div>
+        <div>
+            <label for="categorySelect">Filter by Category:</label>
+            <select id="categorySelect" onchange="filterByCategory()">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
       </main>
 </body>
 </html>
