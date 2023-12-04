@@ -19,16 +19,13 @@ $(document).ready(function () {
         var productList = $('#product-list').empty();
 
         $.each(products, function (index, product) {
-            if ((searchQuery === '' || containsSearchQuery(product, searchQuery)))
-             {
-                var productDiv = $('<div class="product" data-id="' + product.id + '"></div>');
+            
                 productDiv.html(`<h3>${product.title}</h3>
-                           <p>Price: $${product.price}</p>
-                           <p>Discount: ${product.discountPercentage}%</p>
-                           <p>Category: ${product.category}</p>
-                           <p>Stock: ${product.stock}</p>
-                           <img src="${product.thumbnail}" 
-                               `);
+                                <p>Price: $${product.price}</p>
+                                <p>Discount: ${product.discountPercentage}%</p>
+                                <p>Category: ${product.category}</p>
+                                <p>Stock: ${product.stock}</p>
+                                <img src="${product.thumbnail}" alt="${product.title}">`);
                                productDiv.click(function () {
                                 var productId = $(this).data('id');
                                 window.location.href = `product-details.html?id=${productId}`;
