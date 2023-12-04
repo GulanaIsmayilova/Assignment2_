@@ -20,6 +20,18 @@ header {
 #search {
     margin-right: 10px;
 }
+#product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;  
+}
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 3000px;
+}
 .product {
     width: calc(25% - 50px);
     border: 1px solid #ddd;
