@@ -20,10 +20,12 @@ $(document).ready(function () {
              {
                 var productDiv = $('<div class="product" data-id="' + product.id + '"></div>');
                 productDiv.html(`<h3>${product.title}</h3>
-                                <p>Price: $${product.price}</p>
-                                <p>Category: ${product.category}</p>
+                           <p>Price: $${product.price}</p>
+                           <p>Discount: ${product.discountPercentage}%</p>
+                           <p>Category: ${product.category}</p>
+                           <p>Stock: ${product.stock}</p>
+                           <img src="${product.thumbnail}" 
                                `);
-                
                                productDiv.click(function () {
                                 var productId = $(this).data('id');
                                 window.location.href = `product-details.html?id=${productId}`;
