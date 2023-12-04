@@ -19,7 +19,10 @@ $(document).ready(function () {
         var productList = $('#product-list').empty();
 
         $.each(products, function (index, product) {
-            
+            if ((searchQuery === '' || containsSearchQuery(product, searchQuery)) &&
+                (categoryFilter === '' || product.category === categoryFilter)) {
+                var productDiv = $('<div class="product" data-id="' + product.id + '"></div>');
+
                 productDiv.html(`<h3>${product.title}</h3>
                                 <p>Price: $${product.price}</p>
                                 <p>Discount: ${product.discountPercentage}%</p>
@@ -30,6 +33,10 @@ $(document).ready(function () {
                                 var productId = $(this).data('id');
                                 window.location.href = `product-details.html?id=${productId}`;
                             });
+                            productDiv.click(function () {
+                                var productId = $(this).data('id');
+                                window.location.href = `product-details.html?id=${productId}`;
+                            });            
                 productList.append(productDiv);
             }
         });
