@@ -22,12 +22,29 @@ $(document).ready(function () {
             }
         });
     }
+
+    function filterAndPaginate(products, startIndex, itemsPerPage, searchQuery, categoryFilter) {
+        let filteredProducts = products;
+
+        if (searchQuery) {
+            filteredProducts = filteredProducts.filter(product =>
+                containsSearchQuery(product, searchQuery)
+            );
+        }
+
+        if (categoryFilter) {
+            filteredProducts = filteredProducts.filter(product =>
+                product.category === categoryFilter
+            );
+        }
+
+        return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+    }
     function displayProducts(products) {
         const productList = $('#product-list').empty();
 
         $.each(products, function (index, product) {
             const productDiv = $('<div class="product" data-id="' + product.id + '"></div>');
-            
             productDiv.html(`<h3>${product.title}</h3>
                             <p>Price: $${product.price}</p>
                             <p>Discount: ${product.discountPercentage}%</p>
