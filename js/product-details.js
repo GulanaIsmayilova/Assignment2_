@@ -11,6 +11,9 @@ $(document).ready(function () {
             success: function (response) {
                 displayProductDetails(response);
             },
+            error: function (error) {
+                console.error('Error fetching product details:', error);
+            }
         });
     }
     function displayProductDetails(product) {
