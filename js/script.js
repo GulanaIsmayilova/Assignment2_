@@ -23,7 +23,11 @@ $(document).ready(function () {
                                 <p>Price: $${product.price}</p>
                                 <p>Category: ${product.category}</p>
                                `);
-
+                
+                               productDiv.click(function () {
+                                var productId = $(this).data('id');
+                                window.location.href = `product-details.html?id=${productId}`;
+                            });
                 productList.append(productDiv);
             }
         });
