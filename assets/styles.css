@@ -7,3 +7,16 @@ body {
     align-items: left;
     min-height: 200vh;
 }
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    margin-bottom: 20px;
+}
+.product {
+    width: calc(25% - 50px);
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
