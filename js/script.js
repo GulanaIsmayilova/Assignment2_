@@ -41,6 +41,11 @@ $(document).ready(function () {
             }
         });
     }
+    function containsSearchQuery(product, searchQuery) {
+        return (product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                product.category.toLowerCase().includes(searchQuery.toLowerCase()));
+    }
     function populateCategoryFilter(response) {
         var categories = [...new Set(response.products.map(product => product.category))];
         var categoryFilter = $('#category-filter').empty();
