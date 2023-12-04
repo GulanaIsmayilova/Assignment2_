@@ -41,5 +41,9 @@ $(document).ready(function () {
             }
         });
     }
+    function populateCategoryFilter(response) {
+        var categories = [...new Set(response.products.map(product => product.category))];
+        var categoryFilter = $('#category-filter').empty();
+        categoryFilter.append('<option value="">All Categories</option>');
     ;
 });
