@@ -13,6 +13,13 @@ header {
     justify-content: space-between; 
     margin-bottom: 20px;
 }
+#search-filter {
+    display: flex;
+    align-items: center;
+}
+#search {
+    margin-right: 10px;
+}
 .product {
     width: calc(25% - 50px);
     border: 1px solid #ddd;
