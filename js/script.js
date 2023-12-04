@@ -9,6 +9,9 @@ $(document).ready(function () {
                 displayProducts(response, searchQuery, categoryFilter);
                 populateCategoryFilter(response);
             },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
         });
     }
     function displayProducts(response, searchQuery, categoryFilter) {
