@@ -45,5 +45,13 @@ $(document).ready(function () {
         var categories = [...new Set(response.products.map(product => product.category))];
         var categoryFilter = $('#category-filter').empty();
         categoryFilter.append('<option value="">All Categories</option>');
-    ;
+        $.each(categories, function (index, category) {
+            categoryFilter.append(`<option value="${category}">${category}</option>`);
+        });
+    }
+    window.applyFilters = function () {
+        var searchQuery = $('#search').val();
+        var categoryFilter = $('#category-filter').val();
+        fetchData(searchQuery, categoryFilter);
+    };
 });
