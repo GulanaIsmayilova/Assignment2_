@@ -94,6 +94,18 @@ $(document).ready(function () {
         updateURLParameters();
         fetchData();
     };
+    
+    function updateURLParameters() {
+        var searchQuery = $('#search').val();
+        var categoryFilter = $('#category-filter').val();
+
+        var params = new URLSearchParams(window.location.search);
+        params.set('search', searchQuery);
+        params.set('category', categoryFilter);
+        params.set('page', currentPage);
+
+        window.history.replaceState({}, '', '?' + params.toString());
+    }
 
     function containsSearchQuery(product, searchQuery) {
         return (product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
