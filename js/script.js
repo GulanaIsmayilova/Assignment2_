@@ -27,7 +27,7 @@ $(document).ready(function () {
             return (searchQuery === '' || containsSearchQuery(product, searchQuery)) &&
                 (categoryFilter === '' || product.category === categoryFilter);
         });
-        
+
         var totalProducts = filteredProducts.length;
         var startIndex = 0;
         var endIndex = totalProducts;
@@ -58,6 +58,14 @@ $(document).ready(function () {
             productList.append(productDiv);
         });
     }
+    function renderPagination(response, searchQuery, categoryFilter) {
+        var products = response.products || [];
+        var filteredProducts = products.filter(function (product) {
+            return (searchQuery === '' || containsSearchQuery(product, searchQuery)) &&
+                (categoryFilter === '' || product.category === categoryFilter);
+        });
+        var totalProducts = filteredProducts.length;
+
     function containsSearchQuery(product, searchQuery) {
         return (product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
