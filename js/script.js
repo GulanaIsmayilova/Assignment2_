@@ -58,6 +58,7 @@ $(document).ready(function () {
             productList.append(productDiv);
         });
     }
+
     function renderPagination(response, searchQuery, categoryFilter) {
         var products = response.products || [];
         var filteredProducts = products.filter(function (product) {
@@ -65,7 +66,7 @@ $(document).ready(function () {
                 (categoryFilter === '' || product.category === categoryFilter);
         });
         var totalProducts = filteredProducts.length;
-        
+
         if (totalProducts > productsPerPage) {
             var totalPages = Math.ceil(totalProducts / productsPerPage);
             var paginationContainer = $('#pagination-container').empty();
@@ -81,6 +82,19 @@ $(document).ready(function () {
             $('#pagination-container').empty();
         }
     }
+
+    window.changePage = function (page) {
+        currentPage = page;
+        updateURLParameters();
+        fetchData();
+    };
+
+    window.applyFilters = function () {
+        currentPage = 1;
+        updateURLParameters();
+        fetchData();
+    };
+
     function containsSearchQuery(product, searchQuery) {
         return (product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
