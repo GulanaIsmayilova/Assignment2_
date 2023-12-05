@@ -65,7 +65,22 @@ $(document).ready(function () {
                 (categoryFilter === '' || product.category === categoryFilter);
         });
         var totalProducts = filteredProducts.length;
+        
+        if (totalProducts > productsPerPage) {
+            var totalPages = Math.ceil(totalProducts / productsPerPage);
+            var paginationContainer = $('#pagination-container').empty();
 
+            for (var i = 1; i <= totalPages; i++) {
+                var pageLink = $('<a href="#" onclick="changePage(' + i + ')">' + i + '</a>');
+                if (i === currentPage) {
+                    pageLink.addClass('current-page');
+                }
+                paginationContainer.append(pageLink);
+            }
+        } else {
+            $('#pagination-container').empty();
+        }
+    }
     function containsSearchQuery(product, searchQuery) {
         return (product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
