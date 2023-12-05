@@ -1,18 +1,6 @@
 # Product Catalog application
 Welcome to the Product Catalog application! This simple web application allows users to browse and filter products.
 
-## Table of Contents
-
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-  - [Home Page](#home-page)
-  - [Product Details](#product-details)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Getting Started
 
 ### Prerequisites
 

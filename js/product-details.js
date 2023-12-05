@@ -11,11 +11,12 @@ $(document).ready(function () {
             success: function (response) {
                 displayProductDetails(response);
             },
-            error: function (error) {
-                console.error('Error fetching product details:', error);
+            error: function (xhr, status, error) {
+                handleFetchError(error);
             }
         });
     }
+
     function displayProductDetails(product) {
         var productDetailsContainer = $('#product-details');
         var productDiv = $('<div class="product-details"></div>');
@@ -33,5 +34,10 @@ $(document).ready(function () {
 
         productDiv.append(imageContainer);
         productDetailsContainer.append(productDiv);
+    }
+
+    function handleFetchError(error) {
+        console.error('Error fetching product details:', error);
+        $('#product-details').html('<p>Error fetching product details. Please try again later.</p>');
     }
 });

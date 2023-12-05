@@ -7,8 +7,8 @@ $(document).ready(function () {
     function fetchData() {
         var searchQuery = getParameterByName('search');
         var categoryFilter = getParameterByName('category');
-        var limit = 100; 
-    
+        var limit = 100;
+
         $.ajax({
             url: `https://dummyjson.com/products?limit=${limit}`,
             method: 'GET',
@@ -17,12 +17,11 @@ $(document).ready(function () {
                 populateCategoryFilter(response);
                 renderPagination(response, searchQuery, categoryFilter);
             },
-            error: function (error) {
-                console.error('Error fetching data:', error);
+            error: function (xhr, status, error) {
+                handleFetchError(error);
             }
         });
     }
-
 
     function displayProducts(response, searchQuery, categoryFilter) {
         var products = response.products || [];
@@ -86,6 +85,11 @@ $(document).ready(function () {
         }
     }
 
+    function handleFetchError(error) {
+        console.error('Error fetching data:', error);
+        $('#product-list').html('<p>Error fetching product list. Please check your network connection and try again.</p>');
+    }
+
     window.changePage = function (page) {
         currentPage = page;
         updateURLParameters();
@@ -97,7 +101,7 @@ $(document).ready(function () {
         updateURLParameters();
         fetchData();
     };
-    
+
     function updateURLParameters() {
         var searchQuery = $('#search').val();
         var categoryFilter = $('#category-filter').val();
