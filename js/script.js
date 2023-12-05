@@ -7,8 +7,10 @@ $(document).ready(function () {
     function fetchData() {
         var searchQuery = getParameterByName('search');
         var categoryFilter = getParameterByName('category');
+        var limit = 100; 
+    
         $.ajax({
-            url: 'https://dummyjson.com/products',
+            url: `https://dummyjson.com/products?limit=${limit}`,
             method: 'GET',
             success: function (response) {
                 displayProducts(response, searchQuery, categoryFilter);
@@ -20,6 +22,7 @@ $(document).ready(function () {
             }
         });
     }
+
 
     function displayProducts(response, searchQuery, categoryFilter) {
         var products = response.products || [];
