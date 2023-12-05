@@ -52,7 +52,7 @@ header {
     overflow: hidden;
 }
 .product:hover {
-    transform: scale(1.1);
+    transform: scale(1.07);
 }
 .product h3 {
     font-size: 1.2em;
