@@ -27,6 +27,11 @@ $(document).ready(function () {
             return (searchQuery === '' || containsSearchQuery(product, searchQuery)) &&
                 (categoryFilter === '' || product.category === categoryFilter);
         });
+        
+        var totalProducts = filteredProducts.length;
+        var startIndex = 0;
+        var endIndex = totalProducts;
+
         if (totalProducts > productsPerPage) {
             startIndex = (currentPage - 1) * productsPerPage;
             endIndex = startIndex + productsPerPage;
