@@ -38,3 +38,6 @@ Clone the repository to your local machine:
 
 ## Running the Application
 Open the index.html file in your web browser to run the application. Ensuring  an active internet connection is important, as the application fetches product data from an online API.
+
+## Link
+https://gulanaismayilova.github.io/Assignment2_/
