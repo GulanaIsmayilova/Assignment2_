@@ -95,3 +95,17 @@ body::before {
 #apply-filters:hover {
     background-color: #222;
 }
+#pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+#pagination-container a {
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    background-color: #ddd;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
