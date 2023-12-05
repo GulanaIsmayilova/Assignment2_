@@ -1,21 +1,19 @@
 $(document).ready(function () {
-    const itemsPerPage = 10;
-    let currentPage = 1;
+    var currentPage = 1;
+    var productsPerPage = 10;
 
     fetchData();
 
-    function fetchData(searchQuery = '', categoryFilter = '') {
-        const apiUrl = 'https://dummyjson.com/products';
-        const startIndex = (currentPage - 1) * itemsPerPage;
-
+    function fetchData() {
+        var searchQuery = getParameterByName('search');
+        var categoryFilter = getParameterByName('category');
         $.ajax({
-            url: apiUrl,
+            url: 'https://dummyjson.com/products',
             method: 'GET',
             success: function (response) {
-                const filteredProducts = filterAndPaginate(response.products, startIndex, itemsPerPage, searchQuery, categoryFilter);
-                displayProducts(filteredProducts);
+                displayProducts(response, searchQuery, categoryFilter);
                 populateCategoryFilter(response);
-                displayPagination(response.products.length);
+                renderPagination(response, searchQuery, categoryFilter);
             },
             error: function (error) {
                 console.error('Error fetching data:', error);
@@ -23,28 +21,23 @@ $(document).ready(function () {
         });
     }
 
-    function filterAndPaginate(products, startIndex, itemsPerPage, searchQuery, categoryFilter) {
-        let filteredProducts = products;
-
-        if (searchQuery) {
-            filteredProducts = filteredProducts.filter(product =>
-                containsSearchQuery(product, searchQuery)
-            );
+    function displayProducts(response, searchQuery, categoryFilter) {
+        var products = response.products || [];
+        var filteredProducts = products.filter(function (product) {
+            return (searchQuery === '' || containsSearchQuery(product, searchQuery)) &&
+                (categoryFilter === '' || product.category === categoryFilter);
+        });
+        if (totalProducts > productsPerPage) {
+            startIndex = (currentPage - 1) * productsPerPage;
+            endIndex = startIndex + productsPerPage;
         }
 
-        if (categoryFilter) {
-            filteredProducts = filteredProducts.filter(product =>
-                product.category === categoryFilter
-            );
-        }
+        var paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
-        return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
-    }
-    function displayProducts(products) {
-        const productList = $('#product-list').empty();
+        var productList = $('#product-list').empty();
 
-        $.each(products, function (index, product) {
-            const productDiv = $('<div class="product" data-id="' + product.id + '"></div>');
+        $.each(paginatedProducts, function (index, product) {
+            var productDiv = $('<div class="product"></div>');
             productDiv.html(`<h3>${product.title}</h3>
                             <p>Price: $${product.price}</p>
                             <p>Discount: ${product.discountPercentage}%</p>
@@ -53,35 +46,32 @@ $(document).ready(function () {
                             <img src="${product.thumbnail}" alt="${product.title}">`);
 
             productDiv.click(function () {
-                const productId = $(this).data('id');
+                var productId = product.id;
                 window.location.href = `product-details.html?id=${productId}`;
             });
 
             productList.append(productDiv);
         });
     }
-
     function containsSearchQuery(product, searchQuery) {
-        return (
-            product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        return (product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            product.category.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+            product.category.toLowerCase().includes(searchQuery.toLowerCase()));
     }
 
     function populateCategoryFilter(response) {
-        const categories = [...new Set(response.products.map(product => product.category))];
-        const categoryFilter = $('#category-filter').empty();
+        var categories = [...new Set(response.products.map(product => product.category))];
+        var categoryFilter = $('#category-filter').empty();
         categoryFilter.append('<option value="">All Categories</option>');
-
         $.each(categories, function (index, category) {
             categoryFilter.append(`<option value="${category}">${category}</option>`);
         });
+        var categoryParam = getParameterByName('category');
+        categoryFilter.val(categoryParam);
     }
 
-    window.applyFilters = function () {
-        const searchQuery = $('#search').val();
-        const categoryFilter = $('#category-filter').val();
-        fetchData(searchQuery, categoryFilter);
-    };
+    function getParameterByName(name) {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name) || '';
+    }
 });
