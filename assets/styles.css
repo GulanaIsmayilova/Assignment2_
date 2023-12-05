@@ -109,6 +109,14 @@ body::before {
     border-radius: 5px;
     cursor: pointer;
 }
+#pagination-container a:hover {
+    background-color: #707070;
+    color: #fff;
+}
+#pagination-container a.current-page {
+    background-color: #000000;
+    color: #ffffff;
+}
 .image-container {
     display: flex;
     flex-wrap: wrap;
